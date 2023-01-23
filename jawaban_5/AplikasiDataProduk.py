@@ -28,6 +28,8 @@ def create_data():
 def read_data():
     cursor.execute("SELECT * FROM produk")
     result = cursor.fetchall()
+    for x in result:
+        print(x)
     # show data in tkinter widgets, e.g. listbox
 
 def update_data():
@@ -47,7 +49,6 @@ button_create = tk.Button(root, text="Tambah", command=create_data)
 button_read = tk.Button(root, text="Baca", command=read_data)
 button_update = tk.Button(root, text="Ubah", command=update_data)
 button_delete = tk.Button(root, text="Hapus", command=delete_data)
-
 
 label_name.pack()
 entry_name.pack()
