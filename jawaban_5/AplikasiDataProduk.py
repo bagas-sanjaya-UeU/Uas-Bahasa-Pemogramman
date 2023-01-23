@@ -1,8 +1,8 @@
 import tkinter as tk
 import mysql.connector
 
-cnx = mysql.connector.connect(user='root', password='', host='localhost', database='produk_db')
-cursor = cnx.cursor()
+db = mysql.connector.connect(user='root', password='', host='localhost', database='produk_db')
+cursor = db.cursor()
 
 root = tk.Tk()
 root.title("Aplikasi data produk dengan Tkinter dan MySQL")
@@ -23,14 +23,14 @@ def create_data():
     harga = int(entry_harga.get())
 
     cursor.execute("INSERT INTO produk (nama_barang, kategori_barang, harga_barang) VALUES (%s, %s, %s)", (name, kategori_produk, harga))
-    cnx.commit()
+    db.commit()
 
 def read_data():
     cursor.execute("SELECT * FROM produk")
     result = cursor.fetchall()
     for x in result:
         print(x)
-    # show data in tkinter widgets, e.g. listbox
+    
 
 def update_data():
     name = entry_name.get()
@@ -38,12 +38,12 @@ def update_data():
     harga = int(entry_harga.get())
 
     cursor.execute("UPDATE produk SET harga_produk = %s WHERE nama_produk = %s", (harga, name))
-    cnx.commit()
+    db.commit()
 
 def delete_data():
     name = entry_name.get()
     cursor.execute("DELETE FROM produk WHERE nama_produk = %s", (name,))
-    cnx.commit()
+    db.commit()
 
 button_create = tk.Button(root, text="Tambah", command=create_data)
 button_read = tk.Button(root, text="Baca", command=read_data)
@@ -67,4 +67,4 @@ button_delete.pack()
 root.mainloop()
 
 cursor.close()
-cnx.close()
+db.close()
